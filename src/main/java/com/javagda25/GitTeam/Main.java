@@ -8,9 +8,9 @@ public class Main {
 
     }
 
-//    public int skladanieZamowien(){
-//        Produkt produkt = new Produkt();
-//        Scanner scanner = new Scanner(System.in);
-//
-//    }
+    public int skladanieZamowien(){
+        Produkt produkt = new Produkt();
+        Scanner scanner = new Scanner(System.in);
+
+    }
 }
