@@ -3,13 +3,15 @@ package com.javagda25.GitTeam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.List;
-import java.util.Set;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 @AllArgsConstructor
 
 public class Magazyn {
-    List<Produkt> produktyWMagazynie;
-    Set<Zamówienie> listaZamówień;
+    Map<String, Produkt> produktyWMagazynie = new HashMap<>();
+    Map<String, Zamówienie> listaZamówień = new HashMap<>();
 
 }
