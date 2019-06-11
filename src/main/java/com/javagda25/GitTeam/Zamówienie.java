@@ -15,4 +15,6 @@ public class Zamówienie {
     private LocalDateTime dataZamówienia;
     private LocalDateTime dataDostarczenia;
     private String numerFaltury;
+
+
 }
