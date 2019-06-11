@@ -11,7 +11,7 @@ import java.util.Scanner;
 @AllArgsConstructor
 
 public class Zamówienie {
-    private int numer;
+    private String numer;
     private List<Produkt> produkty;
     private LocalDateTime dataZamówienia;
     private LocalDateTime dataDostarczenia;
