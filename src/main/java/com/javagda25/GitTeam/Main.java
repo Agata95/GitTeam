@@ -29,6 +29,9 @@ public class Main {
                 case "a":
                     magazyn.dodajZamowienie();
                     break;
+                case "b":
+                    dodajDostawe(magazyn);
+                    break;
                 case "c":
                     magazyn.listujZamowienia(magazyn.listaZamówień);
                     break;
@@ -36,6 +39,8 @@ public class Main {
 
 
         } while (!opcja.equals("q"));
+
+        System.out.println(magazyn.produktyWMagazynie);
 
     }
 
@@ -68,6 +73,7 @@ public class Main {
                     }
                 } catch (IllegalArgumentException iae) {
                     System.err.println("Błędna komenda!");
+                    continue;
                 }
             }
             //utworzenie nr faktury
@@ -103,7 +109,7 @@ public class Main {
             Long czasRealizacji = tDostarczenie.getTime() - tZamówienie.getTime();
 
             if (czasRealizacji > 60000) {
-                System.out.println("Dosatwa zrealizowana z opóźnieniem!");
+                System.out.println("Dostawa zrealizowana z opóźnieniem!");
             }
 
         } else {

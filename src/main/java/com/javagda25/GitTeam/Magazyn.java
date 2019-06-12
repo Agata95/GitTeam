@@ -3,6 +3,8 @@ package com.javagda25.GitTeam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -42,6 +44,7 @@ public class Magazyn {
         System.out.println("Zamówienie złożone. Nr zamówienia: " + zamówienie.getNumer());
 
         zamówienie.setProdukty(produkty);
+        zamówienie.setDataZamówienia(LocalDateTime.now());
 
         listaZamówień.put(zamówienie.getNumer(), zamówienie);
 //        System.out.println(listaZamówień);
