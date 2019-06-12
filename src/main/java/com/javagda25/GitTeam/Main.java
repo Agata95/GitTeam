@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Magazyn magazyn = new Magazyn();
-        Zamówienie zamówienie = new Zamówienie();
+
         Scanner scanner = new Scanner(System.in);
 
         String polecenia = "Wybierz dostępną opcję: \n\"a\" (składanie zamówień) \n\"b\" (realizowanie zamówień)" +
@@ -20,7 +20,7 @@ public class Main {
             opcja = scanner.nextLine();
             switch (opcja) {
                 case "a":
-                    magazyn.dodajZamowienie(zamówienie);
+                    magazyn.dodajZamowienie();
                     break;
                 case "c":
                     magazyn.listujZamowienia(magazyn.listaZamówień);

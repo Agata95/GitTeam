@@ -16,10 +16,11 @@ public class Magazyn {
     Map<String, Zamówienie> listaZamówień = new HashMap<>();
 
 
-    public String dodajZamowienie(Zamówienie zamówienie) {
+    public String dodajZamowienie(){
         Scanner scanner = new Scanner(System.in);
         List<Produkt> produkty = new ArrayList<>();
 
+        Zamówienie zamówienie = new Zamówienie();
         System.out.println("Podaj ilość produktów na zamówieniu:");
         int iloscProduktow = scanner.nextInt();
         int i = 1;
@@ -44,7 +45,7 @@ public class Magazyn {
         zamówienie.setProdukty(produkty);
 
         listaZamówień.put(zamówienie.getNumer(), zamówienie);
-        System.out.println(listaZamówień);
+//        System.out.println(listaZamówień);
 
         return zamówienie.getNumer();
     }
@@ -53,7 +54,7 @@ public class Magazyn {
         Set<Map.Entry<String, Zamówienie>> pary = listaZamówień.entrySet();
 
         for (Map.Entry<String, Zamówienie> s : pary) {
-            System.out.println(s.getKey() + s.getValue());
+            System.out.println(s.getKey() + " " + s.getValue());
         }
 
     }
