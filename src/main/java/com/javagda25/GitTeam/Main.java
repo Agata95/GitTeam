@@ -97,7 +97,7 @@ public class Main {
 
             Long czasRealizacji = tDostarczenie.getTime() - tZamówienie.getTime();
 
-            if (czasRealizacji > 60){
+            if (czasRealizacji > 60000){
                 System.out.println("Dosatwa zrealizowana z opóźnieniem!");
             }
 
