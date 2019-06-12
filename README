@@ -66,10 +66,12 @@ Stwórz main'a w którym dostępna jest opcja:
         Czy chcesz wprowadzić datę dostawy ręcznie?
         -> nie
         Data dostawy zaktualizowana na obecną automatycznie.
-        [na podstawie daty powinna być wyliczana długość spóźnienia, domyślnie każde zamówienie musi być dostarczone w ciągu 1 min.
+        [na podstawie daty powinna być wyliczana długość spóźnienia, domyślnie każde zamówienie musi być dostarczone w
+        ciągu 1 min.
         jeśli nie jest, to informacja o opóźnieniu powinna być dopisana]
 
 ->>> listowania zamówień. Użytkownik podaje komendę "listuj zamówienia", po czym na ekranie wyświetla się lista zamówień
+<<<<<<< HEAD
 (czyli zamówienia aktualne - których nikt jeszcze nie dostarczył)
 ->>> listowania dostaw. Użytkownik podaje komendę "listuj dostawy", po czym na ekranie wyświetla się lista dostaw
 (czyli wypisujemy tylko informacje o zamówieniach które były dostarczone i wypisujemy tylko informacje o dostarczeniu
@@ -78,6 +80,16 @@ Stwórz main'a w którym dostępna jest opcja:
 produktów w magazynie. Przemyśl to! Jeśli zamówiłem 2 razy chleb po 2 sztuki, to powinienem mieć 4 sztuki na magazynie.
 ->>> zapisywania do pliku. Użytkownik podaje komendę "zapisz" - do pliku zrzucają się wszystkie informacje o stanach
  magazynowych, zamówieniach i produktach.
+=======
+ (czyli zamówienia aktualne - których nikt jeszcze nie dostarczył)
+->>> listowania dostaw. Użytkownik podaje komendę "listuj dostawy", po czym na ekranie wyświetla się lista dostaw (czyli
+ wypisujemy tylko informacje o zamówieniach które były dostarczone i wypisujemy tylko informacje o dostarczeniu (nr.
+ faktury, data,..., ilość produktów dostarczonych, czy zamówienie jest opóźnione i o ile))
+->>> listowania produktów. Użytkownik podaje komendę "listuj produkty", po czym na ekranie wyświetla się stan produktów
+ w magazynie. Przemyśl to! Jeśli zamówiłem 2 razy chleb po 2 sztuki, to powinienem mieć 4 sztuki na magazynie.
+->>> zapisywania do pliku. Użytkownik podaje komendę "zapisz" - do pliku zrzucają się wszystkie informacje o stanach
+magazynowych, zamówieniach i produktach.
+>>>>>>> 73a9330415d0294dbf212265fd5e4007a657c2e0
 ->>> wczytywania z pliku. Użytkownik podaje komendę "wczytaj" - z pliku wczytują się wszystkie informacje. Dzięki temu
 przy kolejnych uruchomieniach aplikacji możemy wczytywać informacje z pliku.
 

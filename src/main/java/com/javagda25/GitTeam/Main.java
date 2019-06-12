@@ -6,17 +6,39 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
-
         Magazyn magazyn = new Magazyn();
 
+        Scanner scanner = new Scanner(System.in);
+
+        String polecenia = "Wybierz dostępną opcję: \n\"a\" (składanie zamówień) \n\"b\" (realizowanie zamówień)" +
+                "\n\"c\" (listowane zamówień) \n\"d\" (listowanie dostaw) \n\"e\" (listowanie produktów)" +
+                "\n\"f\" (zapisywanie do pliku) \n\"g\" (wczytywanie z pliku) \n\"h\" (sprzedaż) \n\"q\" (wyjście)";
+
+        String opcja;
+        do {
+            System.out.println(polecenia);
+            opcja = scanner.nextLine();
+            switch (opcja) {
+                case "a":
+                    magazyn.dodajZamowienie();
+                    break;
+                case "c":
+                    magazyn.listujZamowienia(magazyn.listaZamówień);
+                    break;
+            }
 
 
-
+        } while (!opcja.equals("q"));
 
     }
+
 
     public static void dodajDostawe(Magazyn magazyn) {
         Scanner scanner = new Scanner(System.in);
@@ -61,7 +83,7 @@ public class Main {
                         System.out.println("Wprowadż datę w formacie yyyy-MM-dd HH:mm");
                         try {
                             zamówienie.setDataDostarczenia(LocalDateTime.parse(scanner.nextLine(), dateTimeFormatter));
-                        } catch (DateTimeParseException dte){
+                        } catch (DateTimeParseException dte) {
                             System.out.println("Podano zły format daty!");
                         }
                         break;
@@ -69,7 +91,6 @@ public class Main {
                         zamówienie.setDataDostarczenia(LocalDateTime.now());
                         break;
                 }
-
 
 
             } catch (IllegalArgumentException iae) {
@@ -81,7 +102,7 @@ public class Main {
 
             Long czasRealizacji = tDostarczenie.getTime() - tZamówienie.getTime();
 
-            if (czasRealizacji > 60000){
+            if (czasRealizacji > 60000) {
                 System.out.println("Dosatwa zrealizowana z opóźnieniem!");
             }
 
@@ -92,4 +113,6 @@ public class Main {
 
     }
 
+
 }
+
