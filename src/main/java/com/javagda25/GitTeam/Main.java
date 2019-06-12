@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Magazyn magazyn = new Magazyn();
+        Zamówienie zamówienie = new Zamówienie();
         Scanner scanner = new Scanner(System.in);
 
         String polecenia = "Wybierz dostępną opcję: \n\"a\" (składanie zamówień) \n\"b\" (realizowanie zamówień)" +
@@ -19,42 +20,14 @@ public class Main {
             opcja=scanner.nextLine();
             switch (opcja){
                 case "a":
-                    skladanieZamowien(magazyn);
+                    magazyn.dodajZamowienie(zamówienie);
                     break;
 
             }
 
         } while (!opcja.equals("q"));
 
-
         System.out.println(magazyn.listaZamówień);
 
-    }
-
-    public static String skladanieZamowien(Magazyn magazyn) {
-        Produkt produkt = new Produkt();
-        Zamówienie zamówienie = new Zamówienie();
-        Scanner scanner = new Scanner(System.in);
-        List<Produkt> produkty = new ArrayList<>();
-
-        System.out.println("Podaj ilość produktów na zamówieniu:");
-        int iloscProduktow = scanner.nextInt();
-        for (int i = 1; i < iloscProduktow + 1; i++) {
-            System.out.println("Podaj nazwę produktu nr " + i);
-            produkt.setNazwa(scanner.next());
-            System.out.println("Podaj cenę produktu nr " + i);
-            produkt.setCena(scanner.nextDouble());
-            System.out.println("Podaj ilość produktu nr " + i);
-            produkt.setIlość(scanner.nextDouble());
-
-            produkty.add(produkt);
-        }
-
-        System.out.println("Podaj numer zamówienia:");
-        String numerZamowienia = scanner.next();
-
-        zamówienie.setProdukty(produkty);
-        magazyn.listaZamówień.put(numerZamowienia, zamówienie);
-        return numerZamowienia;
     }
 }
