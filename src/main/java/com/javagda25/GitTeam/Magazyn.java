@@ -22,9 +22,9 @@ public class Magazyn {
 
         System.out.println("Podaj ilość produktów na zamówieniu:");
         int iloscProduktow = scanner.nextInt();
-        int i=1;
+        int i = 1;
 
-        while (i<=iloscProduktow){
+        while (i <= iloscProduktow) {
             Produkt produkt = new Produkt();
             System.out.println("Podaj nazwę produktu nr " + i);
             produkt.setNazwa(scanner.next());
@@ -44,17 +44,17 @@ public class Magazyn {
         zamówienie.setProdukty(produkty);
 
         listaZamówień.put(zamówienie.getNumer(), zamówienie);
+        System.out.println(listaZamówień);
 
         return zamówienie.getNumer();
     }
 
-    public void listujZamowienia(Map<String,Zamówienie> listaZamówień) {
-        Set<Map.Entry<String,Zamówienie>> pary = listaZamówień.entrySet();
+    public void listujZamowienia(Map<String, Zamówienie> listaZamówień) {
+        Set<Map.Entry<String, Zamówienie>> pary = listaZamówień.entrySet();
 
         for (Map.Entry<String, Zamówienie> s : pary) {
             System.out.println(s.getKey() + s.getValue());
         }
-
 
     }
 

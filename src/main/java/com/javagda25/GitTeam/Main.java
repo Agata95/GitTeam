@@ -29,7 +29,6 @@ public class Main {
 
         } while (!opcja.equals("q"));
 
-        System.out.println(magazyn.listaZamówień);
 
     }
 }
