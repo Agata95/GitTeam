@@ -16,7 +16,7 @@ public class Magazyn {
     Map<String, Zamówienie> listaZamówień = new HashMap<>();
 
 
-    public String dodajZamowienie(){
+    public String dodajZamowienie() {
         Scanner scanner = new Scanner(System.in);
         List<Produkt> produkty = new ArrayList<>();
 
@@ -41,6 +41,7 @@ public class Magazyn {
         System.out.println("Podaj numer zamówienia:");
         String numerZamowienia = scanner.next();
         zamówienie.setNumer(numerZamowienia);
+        System.out.println("Zamówienie złożone. Nr zamówienia: " + zamówienie.getNumer());
 
         zamówienie.setProdukty(produkty);
 
