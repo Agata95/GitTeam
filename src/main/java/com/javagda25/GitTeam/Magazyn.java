@@ -17,13 +17,15 @@ public class Magazyn {
 
 
     public String dodajZamowienie(Zamówienie zamówienie) {
-        Produkt produkt = new Produkt();
         Scanner scanner = new Scanner(System.in);
         List<Produkt> produkty = new ArrayList<>();
 
         System.out.println("Podaj ilość produktów na zamówieniu:");
         int iloscProduktow = scanner.nextInt();
-        for (int i = 1; i < iloscProduktow + 1; i++) {
+        int i=1;
+
+        while (i<=iloscProduktow){
+            Produkt produkt = new Produkt();
             System.out.println("Podaj nazwę produktu nr " + i);
             produkt.setNazwa(scanner.next());
             System.out.println("Podaj cenę produktu nr " + i);
@@ -32,14 +34,28 @@ public class Magazyn {
             produkt.setIlość(scanner.nextDouble());
 
             produkty.add(produkt);
+            i++;
         }
 
         System.out.println("Podaj numer zamówienia:");
         String numerZamowienia = scanner.next();
+        zamówienie.setNumer(numerZamowienia);
 
         zamówienie.setProdukty(produkty);
-        listaZamówień.put(numerZamowienia, zamówienie);
-        return numerZamowienia;
+
+        listaZamówień.put(zamówienie.getNumer(), zamówienie);
+
+        return zamówienie.getNumer();
+    }
+
+    public void listujZamowienia(Map<String,Zamówienie> listaZamówień) {
+        Set<Map.Entry<String,Zamówienie>> pary = listaZamówień.entrySet();
+
+        for (Map.Entry<String, Zamówienie> s : pary) {
+            System.out.println(s.getKey() + s.getValue());
+        }
+
+
     }
 
 }

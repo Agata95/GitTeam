@@ -15,14 +15,16 @@ public class Main {
                 "\n\"f\" (zapisywanie do pliku) \n\"g\" (wczytywanie z pliku) \n\"h\" (sprzedaż) \n\"q\" (wyjście)";
 
         String opcja;
-        do{
+        do {
             System.out.println(polecenia);
-            opcja=scanner.nextLine();
-            switch (opcja){
+            opcja = scanner.nextLine();
+            switch (opcja) {
                 case "a":
                     magazyn.dodajZamowienie(zamówienie);
                     break;
-
+                case "c":
+                    magazyn.listujZamowienia(magazyn.listaZamówień);
+                    break;
             }
 
         } while (!opcja.equals("q"));
