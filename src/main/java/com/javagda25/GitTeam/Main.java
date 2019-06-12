@@ -12,24 +12,8 @@ public class Main {
 
         Magazyn magazyn = new Magazyn();
 
-        //dane stworzone do testów
-//        Produkt p1 = new Produkt("chleb", 2.3, 5, false);
-//        Produkt p2 = new Produkt("maka", 2.3, 5, false);
-//        Produkt p3 = new Produkt("jaja", 2.3, 5, false);
-//        Produkt p4 = new Produkt("mleko", 2.3, 5, false);
-//        List <Produkt> produkts = new ArrayList<>();
-//        produkts.add(p1);
-//        produkts.add(p2);
-//        produkts.add(p3);
-//        produkts.add(p4);
-//
-//
-//       Zamówienie z1 = new Zamówienie("RR1212", produkts, LocalDateTime.now(), LocalDateTime.now(), "------" );
-//       List<Zamówienie> lz = new ArrayList<>();
-//
-//       magazyn.listaZamówień.put("RR1212", z1);
-//
-//       dodajDostawe(magazyn);
+
+
 
 
     }
