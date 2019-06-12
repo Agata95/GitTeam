@@ -12,4 +12,8 @@ public class Produkt {
     private double ilość;
     private boolean czyDostarczony;
 
+    public String wypiszProdukt(){
+        return nazwa + ", " + cena+ ", "+ilość;
+    }
+
 }
