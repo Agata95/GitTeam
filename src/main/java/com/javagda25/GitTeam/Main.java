@@ -46,7 +46,10 @@ public class Main {
 
         } while (!opcja.equals("q"));
 
-        System.out.println(magazyn.produktyWMagazynie);
+        for (Map.Entry<String, Produkt> s : magazyn.produktyWMagazynie.entrySet()) {
+            System.out.println(s);
+        }
+
 
     }
 
@@ -76,7 +79,7 @@ public class Main {
                     switch (scanner.nextLine().toUpperCase()) {
                         case ("TAK"):
                             produkt.setCzyDostarczony(true);
-                            magazyn.produktyWMagazynie.put(numerZamówienia, produkt);
+                            magazyn.produktyWMagazynie.put(produkt.getNazwa(), produkt);
                             a++;
                             zamówienie.setProduktyDostarczone(a);
                             break;
