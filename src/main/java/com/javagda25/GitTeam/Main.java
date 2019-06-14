@@ -1,6 +1,5 @@
 package com.javagda25.GitTeam;
 
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,7 +32,13 @@ public class Main {
                     dodajDostawe(magazyn);
                     break;
                 case "c":
-                    magazyn.listujZamowienia(magazyn.listaZamówień);
+                    magazyn.listowanie(magazyn.listaZamówieńNieZrealizowanych);
+                    break;
+                case "d":
+                    magazyn.listowanieDostaw(magazyn.listaZamówieńZrealizowanych);
+                    break;
+                case "e":
+                    magazyn.listowanieProduktow(magazyn.produktyWMagazynie);
                     break;
             }
 
@@ -53,8 +58,16 @@ public class Main {
         //sprawdzam czy podany nr zamówienia istnieje
         if (magazyn.listaZamówień.containsKey(numerZamówienia)) {
             Zamówienie zamówienie = magazyn.listaZamówień.get(numerZamówienia);
+
+            // usuwanie z listy zamówienia, które zostało zrealizowane
+            magazyn.listaZamówieńNieZrealizowanych.remove(numerZamówienia);
+
+            // dodawanie do listy zamówień, te które zostały zrealizowane
+            magazyn.listaZamówieńZrealizowanych.put(numerZamówienia, zamówienie);
+
             System.out.println("Zamówienie zawiera " + zamówienie.getProdukty().size() + " produkty");
             //iteracja po liście produktów celem wypisania ich ilości z zamówienia
+            int a = 0; // zmienna potrzebna by uzupełniać ilość dostarczonych produktów
             for (Produkt produkt : zamówienie.getProdukty()) {
                 System.out.println("Czy w dostawie znajduje się produkt (tak/nie): " + produkt.wypiszProdukt());
                 //uzupełnianie magazynu dla dostarczonych produktów
@@ -62,7 +75,9 @@ public class Main {
                     switch (scanner.nextLine().toUpperCase()) {
                         case ("TAK"):
                             produkt.setCzyDostarczony(true);
-                            magazyn.produktyWMagazynie.put(numerZamówienia, produkt);
+                            magazyn.produktyWMagazynie.put(produkt.getNazwa(), produkt);
+                            a++;
+                            zamówienie.setProduktyDostarczone(a);
                             break;
                         case ("NIE"):
                             produkt.setCzyDostarczony(false);
@@ -110,6 +125,8 @@ public class Main {
 
             if (czasRealizacji > 60000) {
                 System.out.println("Dostawa zrealizowana z opóźnieniem!");
+                zamówienie.setCzyOpozniony(true);
+                zamówienie.setOIleOpozniony(czasRealizacji);
             }
 
         } else {

@@ -14,6 +14,8 @@ import java.util.*;
 public class Magazyn {
     Map<String, Produkt> produktyWMagazynie = new HashMap<>();
     Map<String, Zamówienie> listaZamówień = new HashMap<>();
+    Map<String, Zamówienie> listaZamówieńNieZrealizowanych = listaZamówień;
+    Map<String, Zamówienie> listaZamówieńZrealizowanych = new HashMap<>();
 
 
     public String dodajZamowienie() {
@@ -52,13 +54,37 @@ public class Magazyn {
         return zamówienie.getNumer();
     }
 
-    public void listujZamowienia(Map<String, Zamówienie> listaZamówień) {
-        Set<Map.Entry<String, Zamówienie>> pary = listaZamówień.entrySet();
+    public void listowanie(Map<String, Zamówienie> listaZamówieńNieZrealizowanych) {
+        Set<Map.Entry<String, Zamówienie>> p = listaZamówieńNieZrealizowanych.entrySet();
 
-        for (Map.Entry<String, Zamówienie> s : pary) {
-            System.out.println(s.getKey() + " " + s.getValue());
+        for (Map.Entry<String, Zamówienie> s : p) {
+            System.out.println("Numer zamówienia: " + s.getKey() + " " + s.getValue().getProdukty());
+        }
+    }
+
+    public void listowanieDostaw(Map<String, Zamówienie> listaZamówieńZrealizowanych) {
+        Set<Map.Entry<String, Zamówienie>> p = listaZamówieńZrealizowanych.entrySet();
+
+        for (Map.Entry<String, Zamówienie> s : p) {
+            System.out.println("Numer zamówienia: " + s.getKey() + " Numer faktury: " + s.getValue().getNumerFaltury() +
+                    " Data zamówienia: " + s.getValue().getDataZamówienia() + " Data dostarczenia: " + s.getValue().getDataDostarczenia()
+                    + " Ilość produktów dostarczonych: " + s.getValue().getProduktyDostarczone() + " Czy opóźnione: " +
+                    s.getValue().getCzyOpozniony() + " Opóźniony o: " + s.getValue().getOIleOpozniony());
+        }
+    }
+
+    public void listowanieProduktow(Map<String, Produkt> produktyWMagazynie) {
+        Set<Map.Entry<String, Produkt>> p = produktyWMagazynie.entrySet();
+        Map<String, Double> produktyIlosc = new HashMap<>();
+        int licznik=0;
+
+        for (Map.Entry<String, Produkt> s : p) {
+            produktyIlosc.put(s.getValue().getNazwa(), s.getValue().getIlość());
         }
 
+        for (Map.Entry<String, Double> s : produktyIlosc.entrySet()) {
+            System.out.println(s);
+        }
     }
 
 }
