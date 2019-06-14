@@ -19,5 +19,10 @@ public class Zamówienie {
     private LocalDateTime dataDostarczenia;
     private String numerFaltury;
 
+    // dodatkowe potrzebne zmienne
+    private int produktyDostarczone;
+    private Boolean czyOpozniony;
+    private long oIleOpozniony;
+
 
 }

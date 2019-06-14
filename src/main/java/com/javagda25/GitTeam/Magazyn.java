@@ -14,6 +14,8 @@ import java.util.*;
 public class Magazyn {
     Map<String, Produkt> produktyWMagazynie = new HashMap<>();
     Map<String, Zamówienie> listaZamówień = new HashMap<>();
+    Map<String, Zamówienie> listaZamówieńNieZrealizowanych = listaZamówień;
+    Map<String, Zamówienie> listaZamówieńZrealizowanych = new HashMap<>();
 
 
     public String dodajZamowienie() {
@@ -52,13 +54,23 @@ public class Magazyn {
         return zamówienie.getNumer();
     }
 
-    public void listujZamowienia(Map<String, Zamówienie> listaZamówień) {
-        Set<Map.Entry<String, Zamówienie>> pary = listaZamówień.entrySet();
+    public void listowanie(Map<String, Zamówienie> listaZamówieńNieZrealizowanych) {
+        Set<Map.Entry<String, Zamówienie>> pary = listaZamówieńNieZrealizowanych.entrySet();
 
         for (Map.Entry<String, Zamówienie> s : pary) {
-            System.out.println(s.getKey() + " " + s.getValue());
+            System.out.println("Numer zamówienia: " + s.getKey() + " " + s.getValue().getProdukty());
         }
+    }
 
+    public void listowanieDostaw(Map<String, Zamówienie> listaZamówieńZrealizowanych) {
+        Set<Map.Entry<String, Zamówienie>> pary = listaZamówieńZrealizowanych.entrySet();
+
+        for (Map.Entry<String, Zamówienie> s : pary) {
+            System.out.println("Numer zamówienia: " + s.getKey() + " Numer faktury: " + s.getValue().getNumerFaltury() +
+                    " Data zamówienia: " + s.getValue().getDataZamówienia() + " Data dostarczenia: " + s.getValue().getDataDostarczenia()
+                    + " Ilość produktów dostarczonych: " + s.getValue().getProduktyDostarczone() + " Czy opóźnione: " +
+                    s.getValue().getCzyOpozniony() + " Opóźniony o: " + s.getValue().getOIleOpozniony());
+        }
     }
 
 }
