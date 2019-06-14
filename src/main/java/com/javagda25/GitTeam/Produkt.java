@@ -19,4 +19,5 @@ public class Produkt {
         return nazwa + ", " + cena+ ", "+ilość;
     }
 
+
 }

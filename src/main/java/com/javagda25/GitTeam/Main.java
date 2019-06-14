@@ -38,6 +38,9 @@ public class Main {
                 case "d":
                     magazyn.listowanieDostaw(magazyn.listaZamówieńZrealizowanych);
                     break;
+                case "e":
+                    magazyn.listowanieProduktow(magazyn.produktyWMagazynie);
+                    break;
             }
 
 
@@ -61,11 +64,11 @@ public class Main {
             magazyn.listaZamówieńNieZrealizowanych.remove(numerZamówienia);
 
             // dodawanie do listy zamówień, te które zostały zrealizowane
-            magazyn.listaZamówieńZrealizowanych.put(numerZamówienia,zamówienie);
+            magazyn.listaZamówieńZrealizowanych.put(numerZamówienia, zamówienie);
 
             System.out.println("Zamówienie zawiera " + zamówienie.getProdukty().size() + " produkty");
             //iteracja po liście produktów celem wypisania ich ilości z zamówienia
-            int a=0; // zmienna potrzebna by uzupełniać ilość dostarczony produktów
+            int a = 0; // zmienna potrzebna by uzupełniać ilość dostarczony produktów
             for (Produkt produkt : zamówienie.getProdukty()) {
                 System.out.println("Czy w dostawie znajduje się produkt (tak/nie): " + produkt.wypiszProdukt());
                 //uzupełnianie magazynu dla dostarczonych produktów
@@ -130,8 +133,6 @@ public class Main {
         } else {
             System.err.println("Brak zamówienia o podanym numerze!");
         }
-
-
 
 
     }

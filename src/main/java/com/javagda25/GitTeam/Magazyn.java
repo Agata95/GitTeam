@@ -55,21 +55,35 @@ public class Magazyn {
     }
 
     public void listowanie(Map<String, Zamówienie> listaZamówieńNieZrealizowanych) {
-        Set<Map.Entry<String, Zamówienie>> pary = listaZamówieńNieZrealizowanych.entrySet();
+        Set<Map.Entry<String, Zamówienie>> p = listaZamówieńNieZrealizowanych.entrySet();
 
-        for (Map.Entry<String, Zamówienie> s : pary) {
+        for (Map.Entry<String, Zamówienie> s : p) {
             System.out.println("Numer zamówienia: " + s.getKey() + " " + s.getValue().getProdukty());
         }
     }
 
     public void listowanieDostaw(Map<String, Zamówienie> listaZamówieńZrealizowanych) {
-        Set<Map.Entry<String, Zamówienie>> pary = listaZamówieńZrealizowanych.entrySet();
+        Set<Map.Entry<String, Zamówienie>> p = listaZamówieńZrealizowanych.entrySet();
 
-        for (Map.Entry<String, Zamówienie> s : pary) {
+        for (Map.Entry<String, Zamówienie> s : p) {
             System.out.println("Numer zamówienia: " + s.getKey() + " Numer faktury: " + s.getValue().getNumerFaltury() +
                     " Data zamówienia: " + s.getValue().getDataZamówienia() + " Data dostarczenia: " + s.getValue().getDataDostarczenia()
                     + " Ilość produktów dostarczonych: " + s.getValue().getProduktyDostarczone() + " Czy opóźnione: " +
                     s.getValue().getCzyOpozniony() + " Opóźniony o: " + s.getValue().getOIleOpozniony());
+        }
+    }
+
+    public void listowanieProduktow(Map<String, Produkt> produktyWMagazynie) {
+        Set<Map.Entry<String, Produkt>> p = produktyWMagazynie.entrySet();
+        Map<String, Double> produktyIlosc = new HashMap<>();
+        int licznik=0;
+
+        for (Map.Entry<String, Produkt> s : p) {
+            produktyIlosc.put(s.getValue().getNazwa(), s.getValue().getIlość());
+        }
+
+        for (Map.Entry<String, Double> s : produktyIlosc.entrySet()) {
+            System.out.println(s);
         }
     }
 
