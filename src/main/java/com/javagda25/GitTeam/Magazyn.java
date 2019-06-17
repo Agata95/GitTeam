@@ -74,17 +74,64 @@ public class Magazyn {
     }
 
     public void listowanieProduktow(Map<String, Produkt> produktyWMagazynie) {
-        Set<Map.Entry<String, Produkt>> p = produktyWMagazynie.entrySet();
-        Map<String, Double> produktyIlosc = new HashMap<>();
-        int licznik=0;
+        Map<String, Produkt> p = produktyWMagazynie;
+        Map<String, Double> r = new HashMap<>();
+//        Map<String, Double> produktyIlosc = new HashMap<>();
+        double licznik=0;
 
-        for (Map.Entry<String, Produkt> s : p) {
-            produktyIlosc.put(s.getValue().getNazwa(), s.getValue().getIlość());
+
+        for (Map.Entry<String, Produkt> s : p.entrySet()) {
+            licznik=s.getValue().getIlość();
+            if(s.getValue().getNazwa().equals(p.entrySet())){
+                licznik+=s.getValue().getIlość();
+            }
+            r.put(s.getValue().getNazwa(), licznik);
         }
 
-        for (Map.Entry<String, Double> s : produktyIlosc.entrySet()) {
-            System.out.println(s);
+//        for (Map.Entry<String, Double> s : produktyIlosc.entrySet()) {
+//
+//            if(s.getValue().equals(produktyWMagazynie.get(s.getKey()))){
+//                licznik++;
+//            }
+//        }
+
+//        if(produktyWMagazynie.containsValue(produktyIlosc)){
+//            licznik++;
+//        }
+
+        System.out.println(r);
+        System.out.println(licznik);
+
+//        for (Map.Entry<String, Double> s : produktyIlosc.entrySet()) {
+//            System.out.println(s);
+//
+//        }
+    }
+
+    public void dodawanieDoMagazynu(Produkt produkt, Map<String, Produkt> produktyWMagazynie){
+        double licznik=0;
+
+        produktyWMagazynie.put(produkt.getNazwa(), produkt);
+
+        licznik=produkt.getIlość();
+        for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
+            if(s.getKey().equals(produkt.getNazwa())){
+                licznik+=s.getValue().getIlość();
+            }
         }
+        produkt.setIlość(licznik);
+        produktyWMagazynie.put(produkt.getNazwa(),produkt);
+
+
+//        if(produktyWMagazynie.equals(produkt.getNazwa())){
+//            licznik=produkt.getIlość();
+//            for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
+//            }
+//
+//        }
+
+//        System.out.println(produktyWMagazynie);
+
     }
 
 }
