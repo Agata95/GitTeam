@@ -147,13 +147,15 @@ public class Magazyn {
 
             // usuwanie z magazynu sprzedanych produktów
             for (Produkt produkt : zamówienie.getProdukty()) {
+                double iloscSprzedanegoZamowienia = produkt.getIlość();
                 for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
-                    if (listaSprzedanychProduktow.containsValue(s.getKey())) {
+                    if (produkt.getNazwa().equalsIgnoreCase(s.getKey())) {
                         double iloscWMagazynie = s.getValue().getIlość();
-                        double iloscSprzedanegoZamowienia = produkt.getIlość();
                         s.getValue().setIlość(iloscWMagazynie-iloscSprzedanegoZamowienia);
                     }
-
+//                    if(s.getValue().getIlość()==0){
+//                        produktyWMagazynie.remove(s);
+//                    }
                 }
             }
         } else {
