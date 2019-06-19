@@ -46,6 +46,7 @@ public class Main {
                 case "g":
                     break;
                 case "h":
+                    magazyn.sprzedaz(magazyn.produktyWMagazynie);
                     break;
             }
 
@@ -74,7 +75,7 @@ public class Main {
             // dodawanie do listy zamówień, te które zostały zrealizowane
             magazyn.listaZamówieńZrealizowanych.put(numerZamówienia, zamówienie);
 
-            System.out.println("Zamówienie zawiera " + zamówienie.getProdukty().size() + " produkty");
+            System.out.println("Zamówienie zawiera " + zamówienie.getProdukty().size() + " produkty/ów.");
             //iteracja po liście produktów celem wypisania ich ilości z zamówienia
             int a = 0; // zmienna potrzebna by uzupełniać ilość dostarczony produktów
             for (Produkt produkt : zamówienie.getProdukty()) {

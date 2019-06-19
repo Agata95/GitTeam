@@ -16,6 +16,7 @@ public class Magazyn {
     Map<String, Zamówienie> listaZamówień = new HashMap<>();
     Map<String, Zamówienie> listaZamówieńNieZrealizowanych = listaZamówień;
     Map<String, Zamówienie> listaZamówieńZrealizowanych = new HashMap<>();
+    Map<String, Zamówienie> listaSprzedanychProduktow = new HashMap<>();
 
 
     public String dodajZamowienie() {
@@ -77,13 +78,13 @@ public class Magazyn {
         Map<String, Produkt> p = produktyWMagazynie;
         Map<String, Double> r = new HashMap<>();
 //        Map<String, Double> produktyIlosc = new HashMap<>();
-        double licznik=0;
+        double licznik = 0;
 
 
         for (Map.Entry<String, Produkt> s : p.entrySet()) {
-            licznik=s.getValue().getIlość();
-            if(s.getValue().getNazwa().equals(p.entrySet())){
-                licznik+=s.getValue().getIlość();
+            licznik = s.getValue().getIlość();
+            if (s.getValue().getNazwa().equals(p.entrySet())) {
+                licznik += s.getValue().getIlość();
             }
             r.put(s.getValue().getNazwa(), licznik);
         }
@@ -108,22 +109,56 @@ public class Magazyn {
 //        }
     }
 
-    public void dodawanieDoMagazynu(Produkt produkt, Map<String, Produkt> produktyWMagazynie){
-        double licznik=0;
+    public void dodawanieDoMagazynu(Produkt produkt, Map<String, Produkt> produktyWMagazynie) {
+        double licznik = 0;
 
 
 //        produktyWMagazynie.put(produkt.getNazwa(), produkt);
 
-        licznik=produkt.getIlość();
+        licznik = produkt.getIlość();
         for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
-            if(s.getKey().equals(produkt.getNazwa())){
-                licznik+=s.getValue().getIlość();
+            if (s.getKey().equals(produkt.getNazwa())) {
+                licznik += s.getValue().getIlość();
             }
         }
         produkt.setIlość(licznik);
-        produktyWMagazynie.put(produkt.getNazwa(),produkt);
+        produktyWMagazynie.put(produkt.getNazwa(), produkt);
 
 
+    }
+
+    public void sprzedaz(Map<String, Produkt> produktyWMagazynie) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj numer zamówienia");
+        String numerZamówienia = scanner.nextLine();
+
+        // sprawdzenie, czy wpisany numer zamowienia istnieje
+        if (listaZamówieńZrealizowanych.containsKey(numerZamówienia)) {
+            Zamówienie zamówienie = listaZamówieńZrealizowanych.get(numerZamówienia);
+
+
+            System.out.println("Zamówienie zawiera " + zamówienie.getProdukty().size() + " produkty/ów.");
+            // ile produktów dostarczono na magazyn z produktów zamówionych?
+            System.out.println("Dostarczono : " + zamówienie.getProduktyDostarczone() + " produkty/ów.");
+
+            // dodaje do listy sprzedanych produktow
+            listaSprzedanychProduktow.put(zamówienie.getNumer(), zamówienie);
+            System.out.println(listaSprzedanychProduktow);
+
+            // usuwanie z magazynu sprzedanych produktów
+            for (Produkt produkt : zamówienie.getProdukty()) {
+                for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
+                    if (listaSprzedanychProduktow.containsValue(s.getKey())) {
+                        double iloscWMagazynie = s.getValue().getIlość();
+                        double iloscSprzedanegoZamowienia = produkt.getIlość();
+                        s.getValue().setIlość(iloscWMagazynie-iloscSprzedanegoZamowienia);
+                    }
+
+                }
+            }
+        } else {
+            System.err.println("Brak zamówienia o podanym numerze!");
+        }
     }
 
 }
