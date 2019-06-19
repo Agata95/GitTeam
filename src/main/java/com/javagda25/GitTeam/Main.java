@@ -41,6 +41,12 @@ public class Main {
                 case "e":
                     magazyn.listowanieProduktow(magazyn.produktyWMagazynie);
                     break;
+                case "f":
+                    break;
+                case "g":
+                    break;
+                case "h":
+                    break;
             }
 
 

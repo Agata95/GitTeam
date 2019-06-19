@@ -111,7 +111,8 @@ public class Magazyn {
     public void dodawanieDoMagazynu(Produkt produkt, Map<String, Produkt> produktyWMagazynie){
         double licznik=0;
 
-        produktyWMagazynie.put(produkt.getNazwa(), produkt);
+
+//        produktyWMagazynie.put(produkt.getNazwa(), produkt);
 
         licznik=produkt.getIlość();
         for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
@@ -122,15 +123,6 @@ public class Magazyn {
         produkt.setIlość(licznik);
         produktyWMagazynie.put(produkt.getNazwa(),produkt);
 
-
-//        if(produktyWMagazynie.equals(produkt.getNazwa())){
-//            licznik=produkt.getIlość();
-//            for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
-//            }
-//
-//        }
-
-//        System.out.println(produktyWMagazynie);
 
     }
 
