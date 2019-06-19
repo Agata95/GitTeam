@@ -153,9 +153,9 @@ public class Magazyn {
                         double iloscWMagazynie = s.getValue().getIlość();
                         s.getValue().setIlość(iloscWMagazynie-iloscSprzedanegoZamowienia);
                     }
-//                    if(s.getValue().getIlość()==0){
-//                        produktyWMagazynie.remove(s);
-//                    }
+                    if(s.getValue().getIlość()==0){
+                        produktyWMagazynie.remove(s.getKey());
+                    }
                 }
             }
         } else {
