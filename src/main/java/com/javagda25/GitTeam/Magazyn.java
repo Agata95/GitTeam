@@ -143,7 +143,7 @@ public class Magazyn {
 
             // dodaje do listy sprzedanych produktow
             listaSprzedanychProduktow.put(zamówienie.getNumer(), zamówienie);
-            System.out.println(listaSprzedanychProduktow);
+//            System.out.println(listaSprzedanychProduktow);
 
             // usuwanie z magazynu sprzedanych produktów
             for (Produkt produkt : zamówienie.getProdukty()) {
