@@ -83,7 +83,7 @@ produktów w magazynie. Przemyśl to! Jeśli zamówiłem 2 razy chleb po 2 sztuk
 
 ->>> zapisywania do pliku. Użytkownik podaje komendę "zapisz" - do pliku zrzucają się wszystkie informacje o stanach
 magazynowych, zamówieniach i produktach.
->>>>>>> 73a9330415d0294dbf212265fd5e4007a657c2e0
+
 ->>> wczytywania z pliku. Użytkownik podaje komendę "wczytaj" - z pliku wczytują się wszystkie informacje. Dzięki temu
 przy kolejnych uruchomieniach aplikacji możemy wczytywać informacje z pliku.
 

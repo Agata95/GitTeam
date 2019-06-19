@@ -162,5 +162,4 @@ public class Magazyn {
             System.err.println("Brak zamówienia o podanym numerze!");
         }
     }
-
 }
