@@ -17,12 +17,22 @@ public class Zamówienie {
     private List<Produkt> produkty;
     private LocalDateTime dataZamówienia;
     private LocalDateTime dataDostarczenia;
-    private String numerFaltury;
+    private String numerFaktury;
 
     // dodatkowe potrzebne zmienne
     private int produktyDostarczone;
     private Boolean czyOpozniony;
     private long oIleOpozniony;
 
-
+    @Override
+    public String toString() {
+        return "Zamówienie numer: " + numer +
+                ", zamówione produkty: " + produkty +"\n" +
+                ", data zamówienia: " + dataZamówienia +
+                ", data dostarczenia: " + dataDostarczenia +
+                ", numer faktury: " + numerFaktury + '\'' +
+                ", produkty dostarczone: " + produktyDostarczone + "\n"+
+                ", czy opoznione: " + czyOpozniony +
+                ", o ile opóźnione: " + oIleOpozniony ;
+    }
 }

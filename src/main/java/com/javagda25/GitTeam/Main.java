@@ -40,14 +40,25 @@ public class Main {
                 case "e":
                     magazyn.listowanieProduktow(magazyn.produktyWMagazynie);
                     break;
+                case "f":
+                   magazyn.zapisz();
+                    break;
+                case "g":
+                    magazyn.wczytaj();
+                    System.out.println(magazyn.produktyWMagazynie);
+                    break;
+                case "h":
+                    magazyn.sprzedaz(magazyn.produktyWMagazynie);
+                    break;
             }
 
 
         } while (!opcja.equals("q"));
 
-        System.out.println(magazyn.produktyWMagazynie);
+
 
     }
+
 
 
     public static void dodajDostawe(Magazyn magazyn) {
@@ -93,7 +104,7 @@ public class Main {
             }
             //utworzenie nr faktury
             System.out.println("Zamówienie zrealizowane. Podaj numer faktury");
-            zamówienie.setNumerFaltury(scanner.nextLine());
+            zamówienie.setNumerFaktury(scanner.nextLine());
             System.out.println("Faktura dopisana do zamówienia");
             //utworzenie daty dostarczenia
             System.out.println("Czy chcesz wprowadzić datę dostawy ręcznie? tak/nie");
@@ -135,6 +146,8 @@ public class Main {
 
 
     }
+
+
 
 
 }

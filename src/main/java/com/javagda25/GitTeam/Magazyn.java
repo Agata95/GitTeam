@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -16,6 +17,7 @@ public class Magazyn {
     Map<String, Zamówienie> listaZamówień = new HashMap<>();
     Map<String, Zamówienie> listaZamówieńNieZrealizowanych = listaZamówień;
     Map<String, Zamówienie> listaZamówieńZrealizowanych = new HashMap<>();
+    Map<String, Zamówienie> listaSprzedanychProduktow = new HashMap<>();
 
 
     public String dodajZamowienie() {
@@ -66,7 +68,7 @@ public class Magazyn {
         Set<Map.Entry<String, Zamówienie>> p = listaZamówieńZrealizowanych.entrySet();
 
         for (Map.Entry<String, Zamówienie> s : p) {
-            System.out.println("Numer zamówienia: " + s.getKey() + " Numer faktury: " + s.getValue().getNumerFaltury() +
+            System.out.println("Numer zamówienia: " + s.getKey() + " Numer faktury: " + s.getValue().getNumerFaktury() +
                     " Data zamówienia: " + s.getValue().getDataZamówienia() + " Data dostarczenia: " + s.getValue().getDataDostarczenia()
                     + " Ilość produktów dostarczonych: " + s.getValue().getProduktyDostarczone() + " Czy opóźnione: " +
                     s.getValue().getCzyOpozniony() + " Opóźniony o: " + s.getValue().getOIleOpozniony());
@@ -74,17 +76,146 @@ public class Magazyn {
     }
 
     public void listowanieProduktow(Map<String, Produkt> produktyWMagazynie) {
-        Set<Map.Entry<String, Produkt>> p = produktyWMagazynie.entrySet();
-        Map<String, Double> produktyIlosc = new HashMap<>();
-        int licznik=0;
+        Map<String, Produkt> p = produktyWMagazynie;
+        Map<String, Double> r = new HashMap<>();
+//        Map<String, Double> produktyIlosc = new HashMap<>();
+        double licznik = 0;
 
-        for (Map.Entry<String, Produkt> s : p) {
-            produktyIlosc.put(s.getValue().getNazwa(), s.getValue().getIlość());
+
+        for (Map.Entry<String, Produkt> s : p.entrySet()) {
+            licznik = s.getValue().getIlość();
+            if (s.getValue().getNazwa().equals(p.entrySet())) {
+                licznik += s.getValue().getIlość();
+            }
+            r.put(s.getValue().getNazwa(), licznik);
         }
 
-        for (Map.Entry<String, Double> s : produktyIlosc.entrySet()) {
-            System.out.println(s);
+//        for (Map.Entry<String, Double> s : produktyIlosc.entrySet()) {
+//
+//            if(s.getValue().equals(produktyWMagazynie.get(s.getKey()))){
+//                licznik++;
+//            }
+//        }
+
+//        if(produktyWMagazynie.containsValue(produktyIlosc)){
+//            licznik++;
+//        }
+
+        System.out.println(r);
+//        System.out.println(licznik);
+
+//        for (Map.Entry<String, Double> s : produktyIlosc.entrySet()) {
+//            System.out.println(s);
+//
+//        }
+    }
+
+    public void dodawanieDoMagazynu(Produkt produkt, Map<String, Produkt> produktyWMagazynie) {
+        double licznik = 0;
+
+
+//        produktyWMagazynie.put(produkt.getNazwa(), produkt);
+
+        licznik = produkt.getIlość();
+        for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
+            if (s.getKey().equals(produkt.getNazwa())) {
+                licznik += s.getValue().getIlość();
+            }
+        }
+        produkt.setIlość(licznik);
+        produktyWMagazynie.put(produkt.getNazwa(), produkt);
+
+
+    }
+
+    public void sprzedaz(Map<String, Produkt> produktyWMagazynie) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj numer zamówienia");
+        String numerZamówienia = scanner.nextLine();
+
+        // sprawdzenie, czy wpisany numer zamowienia istnieje
+        if (listaZamówieńZrealizowanych.containsKey(numerZamówienia)) {
+            Zamówienie zamówienie = listaZamówieńZrealizowanych.get(numerZamówienia);
+
+
+            System.out.println("Zamówienie zawiera " + zamówienie.getProdukty().size() + " produkty/ów.");
+            // ile produktów dostarczono na magazyn z produktów zamówionych?
+            System.out.println("Dostarczono : " + zamówienie.getProduktyDostarczone() + " produkty/ów.");
+
+            // dodaje do listy sprzedanych produktow
+            listaSprzedanychProduktow.put(zamówienie.getNumer(), zamówienie);
+//            System.out.println(listaSprzedanychProduktow);
+
+            // usuwanie z magazynu sprzedanych produktów
+            for (Produkt produkt : zamówienie.getProdukty()) {
+                double iloscSprzedanegoZamowienia = produkt.getIlość();
+                for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
+                    if (produkt.getNazwa().equalsIgnoreCase(s.getKey())) {
+                        double iloscWMagazynie = s.getValue().getIlość();
+                        s.getValue().setIlość(iloscWMagazynie - iloscSprzedanegoZamowienia);
+                    }
+                    if (s.getValue().getIlość() == 0) {
+                        produktyWMagazynie.remove(s.getKey());
+                    }
+                }
+            }
+        } else {
+            System.err.println("Brak zamówienia o podanym numerze!");
         }
     }
 
-}
+
+    public void zapisz() {
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter("Stany_magazynowe.txt", true))) {
+            printWriter.println("PRODUKTY W MAGAZYNIE ->" + produktyWMagazynie.values().toString());
+//            printWriter.println("ZAMÓWIENIA NIEZREALIZOWANE ->\n" + listaZamówieńNieZrealizowanych.values().toString());
+//            printWriter.println("ZAMÓWIENIA ZREALIZOWANE ->\n" + listaZamówieńZrealizowanych.values().toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void wczytaj() {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("Stany_magazynowe.txt"))) {
+            String linia;
+            Produkt produkt = null;
+
+            while ((linia = reader.readLine()) != null) {
+                if (linia.equals("PRODUKTY W MAGAZYNIE ->[")) {
+                    if (produkt != null) {
+                        produktyWMagazynie.put(produkt.getNazwa(), produkt);
+                    }
+                    produkt = new Produkt();
+
+                } else {
+                    String[] informacje = linia.split(" = ");
+                    switch (informacje[0]) {
+                        case ("Produkt"):
+                            produkt.setNazwa(informacje[1]);
+                            break;
+                        case "cena":
+                            produkt.setCena(Double.parseDouble(informacje[1]));
+                            break;
+                        case "ilość":
+                            produkt.setIlość(Double.parseDouble(informacje[1]));
+                            break;
+                    }
+
+                }
+
+            }
+
+            } catch(FileNotFoundException e){
+                e.printStackTrace();
+            } catch(IOException e){
+                e.printStackTrace();
+
+
+            }
+
+
+        }
+    }

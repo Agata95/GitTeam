@@ -1,0 +1,9 @@
+PRODUKTY W MAGAZYNIE = [
+Produkt = ser
+cena = 2.3
+ilość = 3.0
+, 
+Produkt = chleb
+cena = 3.1
+ilość = 2.0
+]
