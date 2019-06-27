@@ -184,12 +184,11 @@ public class Magazyn {
             Produkt produkt = null;
 
             while ((linia = reader.readLine()) != null) {
-                if (linia.equals("PRODUKTY W MAGAZYNIE ->[")) {
+                if (linia.equals("PRODUKTY W MAGAZYNIE = [") || linia.startsWith(",") || linia.startsWith("]")) {
                     if (produkt != null) {
                         produktyWMagazynie.put(produkt.getNazwa(), produkt);
                     }
                     produkt = new Produkt();
-
                 } else {
                     String[] informacje = linia.split(" = ");
                     switch (informacje[0]) {
@@ -203,10 +202,9 @@ public class Magazyn {
                             produkt.setIlość(Double.parseDouble(informacje[1]));
                             break;
                     }
-
                 }
-
             }
+
 
             } catch(FileNotFoundException e){
                 e.printStackTrace();
