@@ -24,51 +24,68 @@ public class Main {
         do {
             System.out.println(polecenia);
             opcja = scanner.nextLine();
-            switch (opcja) {
-                case "a":
-                    magazyn.dodajZamowienie();
-                    break;
-                case "b":
-                    dodajDostawe(magazyn);
-                    break;
-                case "c":
-                    magazyn.listowanie(magazyn.listaZamówieńNieZrealizowanych);
-                    break;
-                case "d":
-                    magazyn.listowanieDostaw(magazyn.listaZamówieńZrealizowanych);
-                    break;
-                case "e":
-                    magazyn.listowanieProduktow(magazyn.produktyWMagazynie);
-                    break;
-                case "f":
-                   magazyn.zapisz();
-                    break;
-                case "g":
-                    magazyn.wczytaj();
-                    System.out.println(magazyn.produktyWMagazynie);
-                    break;
-                case "h":
-                    magazyn.sprzedaz(magazyn.produktyWMagazynie);
-                    break;
-            }
 
+                switch (opcja) {
+                    case "a":
+                        try {
+                            magazyn.dodajZamowienie();
+                        } catch (PodanyNumerZamówieniaIstnieje pnzi) {
+                            System.out.println(pnzi.getMessage());
+                        }
+                        break;
+                    case "b":
+                        try {
+                            dodajDostawe(magazyn);
+                        } catch (PodanyNumerFakturyIstnieje pnfi){
+                            System.out.println(pnfi.getMessage());
+                        }
+                        break;
+                    case "c":
+                        magazyn.listowanie(magazyn.listaZamówieńNieZrealizowanych);
+                        break;
+                    case "d":
+                        magazyn.listowanieDostaw(magazyn.listaZamówieńZrealizowanych);
+                        break;
+                    case "e":
+                        magazyn.listowanieProduktow(magazyn.produktyWMagazynie);
+                        break;
+                    case "f":
+                        magazyn.zapisz();
+                        break;
+                    case "g":
+                        magazyn.wczytaj();
+                        System.out.println("Uzupełniono stan magazynowy o następujące produkty:");
+                        for (Produkt produkt : magazyn.produktyWMagazynie.values()) {
+                            System.out.println(produkt.opiszProdukt());
+                        }
+                        System.out.println("Uzupełniono listę zamówień o następujące zamówienia:");
+                        for (Zamówienie zamówienie : magazyn.listaZamówieńNieZrealizowanych.values()) {
+                            System.out.println(zamówienie.wypiszNieZrealizowane());
+                        }
+                        System.out.println("Uzupełniono listę zamówień zrealizowanych o następujące zamówienia:");
+                        for (Zamówienie zamówienie : magazyn.listaZamówieńZrealizowanych.values()) {
+                            System.out.println(zamówienie.wypiszZrealizowane());
+                        }
+                        break;
+                    case "h":
+                        magazyn.sprzedaz(magazyn.produktyWMagazynie);
+                        break;
+                }
 
         } while (!opcja.equals("q"));
-
 
 
     }
 
 
-
-    public static void dodajDostawe(Magazyn magazyn) {
+    public static void dodajDostawe(Magazyn magazyn) throws PodanyNumerFakturyIstnieje{
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj numer zamówienia");
         String numerZamówienia = scanner.nextLine();
 
         //sprawdzam czy podany nr zamówienia istnieje
-        if (magazyn.listaZamówień.containsKey(numerZamówienia)) {
-            Zamówienie zamówienie = magazyn.listaZamówień.get(numerZamówienia);
+        if (magazyn.listaZamówieńNieZrealizowanych.containsKey(numerZamówienia)) {
+            Zamówienie zamówienie = magazyn.listaZamówieńNieZrealizowanych.get(numerZamówienia);
 
             // usuwanie z listy zamówienia, które zostało zrealizowane
             magazyn.listaZamówieńNieZrealizowanych.remove(numerZamówienia);
@@ -80,13 +97,13 @@ public class Main {
             //iteracja po liście produktów celem wypisania ich ilości z zamówienia
             int a = 0; // zmienna potrzebna by uzupełniać ilość dostarczonych produktów
             for (Produkt produkt : zamówienie.getProdukty()) {
-                System.out.println("Czy w dostawie znajduje się produkt (tak/nie): " + produkt.wypiszProdukt());
+                System.out.println("Czy w dostawie znajduje się produkt (tak/nie): " + produkt.opiszProdukt());
                 //uzupełnianie magazynu dla dostarczonych produktów
                 try {
                     switch (scanner.nextLine().toUpperCase()) {
                         case ("TAK"):
                             produkt.setCzyDostarczony(true);
-                            magazyn.produktyWMagazynie.put(produkt.getNazwa(), produkt);
+                            magazyn.dodawanieDoMagazynu(produkt, magazyn.produktyWMagazynie);
                             a++;
                             zamówienie.setProduktyDostarczone(a);
                             break;
@@ -104,7 +121,11 @@ public class Main {
             }
             //utworzenie nr faktury
             System.out.println("Zamówienie zrealizowane. Podaj numer faktury");
-            zamówienie.setNumerFaktury(scanner.nextLine());
+            String numerFv = scanner.nextLine();
+            zamówienie.setNumerFaktury(numerFv);
+            if (magazyn.listaZamówieńZrealizowanych.values().contains(numerFv)){
+                throw new PodanyNumerFakturyIstnieje();
+            }
             System.out.println("Faktura dopisana do zamówienia");
             //utworzenie daty dostarczenia
             System.out.println("Czy chcesz wprowadzić datę dostawy ręcznie? tak/nie");
@@ -120,7 +141,8 @@ public class Main {
                         }
                         break;
                     case ("NIE"):
-                        zamówienie.setDataDostarczenia(LocalDateTime.now());
+                        String czas = dateTimeFormatter.format(LocalDateTime.now());
+                        zamówienie.setDataDostarczenia(LocalDateTime.parse(czas, dateTimeFormatter));
                         break;
                 }
 
@@ -146,8 +168,6 @@ public class Main {
 
 
     }
-
-
 
 
 }

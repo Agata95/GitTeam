@@ -14,15 +14,15 @@ public class Produkt {
     private double ilość;
     private boolean czyDostarczony;
 
-    public String wypiszProdukt() {
+    public String opiszProdukt() {
         return nazwa + ", cena: " + cena + "zł, ilość: " + ilość + " sztuk";
     }
 
-    @Override
-    public String toString() {
-        return "\nProdukt = " + nazwa + "\n" +
+
+    public String wypiszProdukt() {
+        return "Produkt = " + nazwa + "\n" +
                 "cena = " + cena + "\n" +
-                "ilość = " + ilość + "\n";
+                "ilość = " + ilość +"\n*";
     }
 
 

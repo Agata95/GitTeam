@@ -24,15 +24,18 @@ public class Zamówienie {
     private Boolean czyOpozniony;
     private long oIleOpozniony;
 
-    @Override
-    public String toString() {
-        return "Zamówienie numer: " + numer +
-                ", zamówione produkty: " + produkty +"\n" +
-                ", data zamówienia: " + dataZamówienia +
-                ", data dostarczenia: " + dataDostarczenia +
-                ", numer faktury: " + numerFaktury + '\'' +
-                ", produkty dostarczone: " + produktyDostarczone + "\n"+
-                ", czy opoznione: " + czyOpozniony +
-                ", o ile opóźnione: " + oIleOpozniony ;
-    }
+//   @Override
+    public String wypiszNieZrealizowane() {
+        return "Zamówienie numer = " + numer + "\n" +
+//                "zamówione produkty = " + produkty +"\n" +
+                "data zamówienia = " + dataZamówienia+"\n$"
+                ;}
+
+    public String wypiszZrealizowane() {
+        return "Zamówienie numer = " + numer + "\n" +
+//                "zamówione produkty = " + produkty +"\n" +
+                "data zamówienia = " + dataZamówienia +"\n"+
+                "data dostarczenia = " + dataDostarczenia + "\n" +
+                "numer faktury = " + numerFaktury+"\n#"
+                ;}
 }
