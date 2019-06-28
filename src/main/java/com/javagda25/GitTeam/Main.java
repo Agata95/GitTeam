@@ -28,16 +28,16 @@ public class Main {
                 switch (opcja) {
                     case "a":
                         try {
-                            magazyn.dodajZamowienie();
+                            dodajZamowienie(magazyn);
                         } catch (PodanyNumerZamówieniaIstnieje pnzi) {
-                            System.out.println(pnzi.getMessage());
+                            System.err.println(pnzi.getMessage());
                         }
                         break;
                     case "b":
                         try {
                             dodajDostawe(magazyn);
                         } catch (PodanyNumerFakturyIstnieje pnfi){
-                            System.out.println(pnfi.getMessage());
+                            System.err.println(pnfi.getMessage());
                         }
                         break;
                     case "c":
@@ -68,7 +68,7 @@ public class Main {
                         }
                         break;
                     case "h":
-                        magazyn.sprzedaz(magazyn.produktyWMagazynie);
+                        sprzedaz(magazyn, magazyn.produktyWMagazynie);
                         break;
                 }
 
@@ -77,6 +77,54 @@ public class Main {
 
     }
 
+    public static String dodajZamowienie(Magazyn magazyn) throws PodanyNumerZamówieniaIstnieje {
+        Scanner scanner = new Scanner(System.in);
+        List<Produkt> produkty = new ArrayList<>();
+
+        Zamówienie zamówienie = new Zamówienie();
+        int iloscProduktow = 0;
+        System.out.println("Podaj ilość produktów na zamówieniu:");
+        try {
+            iloscProduktow = scanner.nextInt();
+            int i = 1;
+
+            while (i <= iloscProduktow) {
+                Produkt produkt = new Produkt();
+                System.out.println("Podaj nazwę produktu nr " + i);
+                produkt.setNazwa(scanner.next());
+                System.out.println("Podaj cenę produktu nr " + i);
+                produkt.setCena(scanner.nextDouble());
+                System.out.println("Podaj ilość produktu nr " + i);
+                produkt.setIlość(scanner.nextDouble());
+
+                produkty.add(produkt);
+                i++;
+            }
+
+            System.out.println("Podaj numer zamówienia:");
+            String numerZamowienia = scanner.next();
+            zamówienie.setNumer(numerZamowienia);
+            if (magazyn.listaZamówieńNieZrealizowanych.containsKey(numerZamowienia) || magazyn.listaZamówieńZrealizowanych.containsKey(numerZamowienia)) {
+                throw new PodanyNumerZamówieniaIstnieje();
+            }
+
+            System.out.println("Zamówienie złożone. Nr zamówienia: " + zamówienie.getNumer());
+
+            zamówienie.setProdukty(produkty);
+            //ustawienie daty zamówienia w odpowiednim formacie
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            String czas = dateTimeFormatter.format(LocalDateTime.now());
+            zamówienie.setDataZamówienia(LocalDateTime.parse(czas, dateTimeFormatter));
+
+            magazyn.listaZamówieńNieZrealizowanych.put(zamówienie.getNumer(), zamówienie);
+//        System.out.println(listaZamówień);
+        } catch (InputMismatchException ime) {
+            System.out.println("Błędnie podano ilość. Spróbuj jeszcze raz");
+        }
+
+        return zamówienie.getNumer();
+
+    }
 
     public static void dodajDostawe(Magazyn magazyn) throws PodanyNumerFakturyIstnieje{
         Scanner scanner = new Scanner(System.in);
@@ -167,6 +215,42 @@ public class Main {
         }
 
 
+    }
+
+    public static void sprzedaz(Magazyn magazyn, Map<String, Produkt> produktyWMagazynie) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj numer zamówienia");
+        String numerZamówienia = scanner.nextLine();
+
+        // sprawdzenie, czy wpisany numer zamowienia istnieje
+        if (magazyn.listaZamówieńZrealizowanych.containsKey(numerZamówienia)) {
+            Zamówienie zamówienie = magazyn.listaZamówieńZrealizowanych.get(numerZamówienia);
+
+
+            System.out.println("Zamówienie zawiera " + zamówienie.getProdukty().size() + " produkty/ów.");
+            // ile produktów dostarczono na magazyn z produktów zamówionych?
+            System.out.println("Dostarczono : " + zamówienie.getProduktyDostarczone() + " produkty/ów.");
+
+            // dodaje do listy sprzedanych produktow
+            magazyn.listaSprzedanychProduktow.put(zamówienie.getNumer(), zamówienie);
+//            System.out.println(listaSprzedanychProduktow);
+
+            // usuwanie z magazynu sprzedanych produktów
+            for (Produkt produkt : zamówienie.getProdukty()) {
+                double iloscSprzedanegoZamowienia = produkt.getIlość();
+                for (Map.Entry<String, Produkt> s : produktyWMagazynie.entrySet()) {
+                    if (produkt.getNazwa().equalsIgnoreCase(s.getKey())) {
+                        double iloscWMagazynie = s.getValue().getIlość();
+                        s.getValue().setIlość(iloscWMagazynie - iloscSprzedanegoZamowienia);
+                    }
+                    if (s.getValue().getIlość() == 0) {
+                        produktyWMagazynie.remove(s.getKey());
+                    }
+                }
+            }
+        } else {
+            System.err.println("Brak zamówienia o podanym numerze!");
+        }
     }
 
 
