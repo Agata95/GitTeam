@@ -1,19 +1,13 @@
 PRODUKTY W MAGAZYNIE ->
-Produkt = ser
-cena = 2.3
-ilość = 2.0
-*
-Produkt = mleko
-cena = 3.4
-ilość = 3.0
-*
 ZAMÓWIENIA NIEZREALIZOWANE ->
-Zamówienie numer = 2
-data zamówienia = 2019-06-28T19:43
+Zamówienie numer = 1
+zamówione produkty : 
+ Produkt = ser
+cena = 2.0
+ilość = 2.0
+*Produkt = mleko
+cena = 3.0
+ilość = 3.0
+*data zamówienia = 2019-07-01T19:26
 $
 ZAMÓWIENIA ZREALIZOWANE ->
-Zamówienie numer = 1
-data zamówienia = 2019-06-28T19:43
-data dostarczenia = 2019-06-28T19:43
-numer faktury = fv1
-#

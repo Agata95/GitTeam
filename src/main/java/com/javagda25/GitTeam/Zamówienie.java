@@ -24,18 +24,29 @@ public class Zamówienie {
     private Boolean czyOpozniony;
     private long oIleOpozniony;
 
-//   @Override
+    //   @Override
     public String wypiszNieZrealizowane() {
-        return "Zamówienie numer = " + numer + "\n" +
-//                "zamówione produkty = " + produkty +"\n" +
-                "data zamówienia = " + dataZamówienia+"\n$"
-                ;}
+        StringBuilder builder = new StringBuilder();
+        builder.append("Zamówienie numer = " + numer + "\n");
+        builder.append("zamówione produkty : \n ");
+        for (Produkt p : produkty) {
+            builder.append(p.wypiszProdukt());
+        }
+        builder.append("data zamówienia = " + dataZamówienia + "\n$");
+        return builder.toString();
+    }
 
     public String wypiszZrealizowane() {
-        return "Zamówienie numer = " + numer + "\n" +
-//                "zamówione produkty = " + produkty +"\n" +
-                "data zamówienia = " + dataZamówienia +"\n"+
-                "data dostarczenia = " + dataDostarczenia + "\n" +
-                "numer faktury = " + numerFaktury+"\n#"
-                ;}
+        StringBuilder builder = new StringBuilder();
+        builder.append("Zamówienie numer = " + numer + "\n");
+        builder.append("zamówione produkty : \n ");
+        for (Produkt p : produkty) {
+            builder.append(p.wypiszProdukt());
+        }
+        builder.append("data zamówienia = " + dataZamówienia + "\n$");
+        builder.append("data dostarczenia = " + dataDostarczenia + "\n");
+        builder.append("numer faktury = " + numerFaktury + "\n#");
+        return builder.toString();
+
+    }
 }

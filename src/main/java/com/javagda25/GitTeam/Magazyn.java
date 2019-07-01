@@ -164,7 +164,7 @@ public class Magazyn {
             case "Zamówienie numer":
                 zamówienie.setNumer(informacje[1]);
                 break;
-//            case "ilość zamówionych produktów":
+//            case "zamówione produkty : \n ":
 //                zamówienie.setProdukty(null);
 //                break;
             case "data zamówienia":
