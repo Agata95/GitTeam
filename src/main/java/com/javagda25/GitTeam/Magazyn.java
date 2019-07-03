@@ -129,7 +129,7 @@ public class Magazyn {
                     zamówienie = new Zamówienie();
 
                 } else {
-                    parsujLinieZamówienie(linia, zamówienie);
+                    parsujLinieZamówienieZrealizowane(linia, zamówienie);
                 }
             }
 
@@ -148,6 +148,21 @@ public class Magazyn {
             case ("Produkt"):
                 produkt.setNazwa(informacje[1]);
                 break;
+            case "Cena":
+                produkt.setCena(Double.parseDouble(informacje[1]));
+                break;
+            case "Ilość":
+                produkt.setIlość(Double.parseDouble(informacje[1]));
+                break;
+        }
+    }
+
+    private void parsujLinieProdukt1(String linia, Produkt produkt) {
+        String[] informacje = linia.split(" = ");
+        switch (informacje[0]) {
+            case "produkt":
+                produkt.setNazwa(informacje[1]);
+                break;
             case "cena":
                 produkt.setCena(Double.parseDouble(informacje[1]));
                 break;
@@ -160,20 +175,73 @@ public class Magazyn {
 
     private void parsujLinieZamówienie(String linia, Zamówienie zamówienie) {
         String[] informacje = linia.split(" = ");
+        Produkt p = new Produkt();
+        List <Produkt> produktyNaZamówieniu = new ArrayList<>();
+
+        switch (informacje[0]) {
+            case "zamówienie numer":
+                zamówienie.setNumer(informacje[1]);
+                break;
+            case "zamówione produkty":
+                break;
+            case "produkt":
+                p.setNazwa(informacje[1]);
+                produktyNaZamówieniu.add(p);
+                zamówienie.setProdukty(produktyNaZamówieniu);
+                break;
+            case "cena":
+                p.setCena(Double.parseDouble(informacje[1]));
+                produktyNaZamówieniu.add(p);
+                zamówienie.setProdukty(produktyNaZamówieniu);
+                break;
+            case "ilość":
+                p.setIlość(Double.parseDouble(informacje[1]));
+                produktyNaZamówieniu.add(p);
+                zamówienie.setProdukty(produktyNaZamówieniu);
+                break;
+            case "*":
+                p = new Produkt();
+                break;
+            case "data zamówienia":
+                zamówienie.setDataZamówienia(LocalDateTime.parse(informacje[1]));
+                break;
+        }
+
+    }
+
+    private void parsujLinieZamówienieZrealizowane(String linia, Zamówienie zamówienie) {
+        String[] informacje = linia.split(" = ");
+        Produkt p = new Produkt();
+        List <Produkt> produktyNaZamówieniu = new ArrayList<>();
+
         switch (informacje[0]) {
             case "Zamówienie numer":
                 zamówienie.setNumer(informacje[1]);
                 break;
-//            case "zamówione produkty : \n ":
-//                zamówienie.setProdukty(null);
-//                break;
-            case "data zamówienia":
+            case "Zamówione produkty":
+                break;
+            case "produkt":
+                p.setNazwa(informacje[1]);
+                produktyNaZamówieniu.add(p);
+//                zamówienie.setProdukty(produktyNaZamówieniu);
+                break;
+            case "cena":
+                p.setCena(Double.parseDouble(informacje[1]));
+                produktyNaZamówieniu.add(p);
+//                zamówienie.setProdukty(produktyNaZamówieniu);
+                break;
+            case "ilość":
+                p.setIlość(Double.parseDouble(informacje[1]));
+                produktyNaZamówieniu.add(p);
+                zamówienie.setProdukty(produktyNaZamówieniu);
+                break;
+            case "Data zamówienia":
                 zamówienie.setDataZamówienia(LocalDateTime.parse(informacje[1]));
                 break;
-            case "data dostarczenia":
+            case "Data dostarczenia":
                 zamówienie.setDataDostarczenia(LocalDateTime.parse(informacje[1]));
                 break;
-            case "numer faktury":
+            case "Numer faktury":
                 zamówienie.setNumerFaktury(informacje[1]);
                 break;
         }

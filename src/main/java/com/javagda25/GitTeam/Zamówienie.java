@@ -27,10 +27,10 @@ public class Zamówienie {
     //   @Override
     public String wypiszNieZrealizowane() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Zamówienie numer = " + numer + "\n");
-        builder.append("zamówione produkty : \n ");
+        builder.append("zamówienie numer = " + numer + "\n");
+        builder.append("zamówione produkty = \n");
         for (Produkt p : produkty) {
-            builder.append(p.wypiszProdukt());
+            builder.append(p.wypiszProdukt1());
         }
         builder.append("data zamówienia = " + dataZamówienia + "\n$");
         return builder.toString();
@@ -39,13 +39,13 @@ public class Zamówienie {
     public String wypiszZrealizowane() {
         StringBuilder builder = new StringBuilder();
         builder.append("Zamówienie numer = " + numer + "\n");
-        builder.append("zamówione produkty : \n ");
+        builder.append("Zamówione produkty = \n");
         for (Produkt p : produkty) {
-            builder.append(p.wypiszProdukt());
+            builder.append(p.wypiszProdukt1());
         }
-        builder.append("data zamówienia = " + dataZamówienia + "\n$");
-        builder.append("data dostarczenia = " + dataDostarczenia + "\n");
-        builder.append("numer faktury = " + numerFaktury + "\n#");
+        builder.append("Data zamówienia = " + dataZamówienia + "\n$");
+        builder.append("Data dostarczenia = " + dataDostarczenia + "\n");
+        builder.append("Numer faktury = " + numerFaktury + "\n#");
         return builder.toString();
 
     }

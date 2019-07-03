@@ -25,52 +25,65 @@ public class Main {
             System.out.println(polecenia);
             opcja = scanner.nextLine();
 
-                switch (opcja) {
-                    case "a":
-                        try {
-                            dodajZamowienie(magazyn);
-                        } catch (PodanyNumerZamówieniaIstnieje pnzi) {
-                            System.err.println(pnzi.getMessage());
-                        }
-                        break;
-                    case "b":
-                        try {
-                            dodajDostawe(magazyn);
-                        } catch (PodanyNumerFakturyIstnieje pnfi){
-                            System.err.println(pnfi.getMessage());
-                        }
-                        break;
-                    case "c":
+            switch (opcja) {
+                case "a":
+                    try {
+                        dodajZamowienie(magazyn);
+                    } catch (PodanyNumerZamówieniaIstnieje pnzi) {
+                        System.err.println(pnzi.getMessage());
+                    }
+                    break;
+                case "b":
+                    try {
+                        dodajDostawe(magazyn);
+                    } catch (PodanyNumerFakturyIstnieje pnfi) {
+                        System.err.println(pnfi.getMessage());
+                    }
+                    break;
+                case "c":
+                    if (magazyn.listaZamówieńNieZrealizowanych.isEmpty()){
+                        System.out.println("Brak zamówień zrealizowanych");
+                    } else {
                         magazyn.listowanie(magazyn.listaZamówieńNieZrealizowanych);
-                        break;
-                    case "d":
+                    }
+                    break;
+                case "d":
+                    if (magazyn.listaZamówieńZrealizowanych.isEmpty()){
+                        System.out.println("Brak zamówień zrealizowanych");
+                    } else {
                         magazyn.listowanieDostaw(magazyn.listaZamówieńZrealizowanych);
-                        break;
-                    case "e":
+                    }
+                    break;
+                case "e":
+                    if (magazyn.produktyWMagazynie.isEmpty()) {
+                        System.out.println("Brak produktow w magazynie");
+                    } else {
                         magazyn.listowanieProduktow(magazyn.produktyWMagazynie);
-                        break;
-                    case "f":
-                        magazyn.zapisz();
-                        break;
-                    case "g":
-                        magazyn.wczytaj();
-                        System.out.println("Uzupełniono stan magazynowy o następujące produkty:");
-                        for (Produkt produkt : magazyn.produktyWMagazynie.values()) {
-                            System.out.println(produkt.opiszProdukt());
-                        }
-                        System.out.println("Uzupełniono listę zamówień o następujące zamówienia:");
-                        for (Zamówienie zamówienie : magazyn.listaZamówieńNieZrealizowanych.values()) {
-                            System.out.println(zamówienie.wypiszNieZrealizowane());
-                        }
-                        System.out.println("Uzupełniono listę zamówień zrealizowanych o następujące zamówienia:");
-                        for (Zamówienie zamówienie : magazyn.listaZamówieńZrealizowanych.values()) {
-                            System.out.println(zamówienie.wypiszZrealizowane());
-                        }
-                        break;
-                    case "h":
-                        sprzedaz(magazyn, magazyn.produktyWMagazynie);
-                        break;
-                }
+                    }
+                    break;
+                case "f":
+                    magazyn.zapisz();
+                    System.out.println("Dane zostały wczytane!");
+                    break;
+                case "g":
+                    magazyn.wczytaj();
+                    System.out.println("Uzupełniono stan magazynowy o następujące produkty:");
+                    for (Produkt produkt : magazyn.produktyWMagazynie.values()) {
+                        System.out.println(produkt.opiszProdukt());
+                    }
+                    System.out.println("Uzupełniono listę zamówień o następujące zamówienia:");
+                    for (Zamówienie zamówienie : magazyn.listaZamówieńNieZrealizowanych.values()) {
+                        System.out.println(zamówienie.wypiszNieZrealizowane());
+                    }
+                    System.out.println("Uzupełniono listę zamówień zrealizowanych o następujące zamówienia:");
+                    for (Zamówienie zamówienie : magazyn.listaZamówieńZrealizowanych.values()) {
+                        System.out.println(zamówienie.wypiszZrealizowane());
+                    }
+                    break;
+                case "h":
+                    sprzedaz(magazyn, magazyn.produktyWMagazynie);
+                    break;
+            }
 
         } while (!opcja.equals("q"));
 
@@ -126,7 +139,7 @@ public class Main {
 
     }
 
-    public static void dodajDostawe(Magazyn magazyn) throws PodanyNumerFakturyIstnieje{
+    public static void dodajDostawe(Magazyn magazyn) throws PodanyNumerFakturyIstnieje {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj numer zamówienia");
         String numerZamówienia = scanner.nextLine();
@@ -171,7 +184,7 @@ public class Main {
             System.out.println("Zamówienie zrealizowane. Podaj numer faktury");
             String numerFv = scanner.nextLine();
             zamówienie.setNumerFaktury(numerFv);
-            if (magazyn.listaZamówieńZrealizowanych.values().contains(numerFv)){
+            if (magazyn.listaZamówieńZrealizowanych.values().contains(numerFv)) {
                 throw new PodanyNumerFakturyIstnieje();
             }
             System.out.println("Faktura dopisana do zamówienia");

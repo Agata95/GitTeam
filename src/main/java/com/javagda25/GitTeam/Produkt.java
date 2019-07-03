@@ -21,8 +21,14 @@ public class Produkt {
 
     public String wypiszProdukt() {
         return "Produkt = " + nazwa + "\n" +
+                "Cena = " + cena + "\n" +
+                "Ilość = " + ilość +"\n*\n";
+    }
+
+    public String wypiszProdukt1() {
+        return "produkt = " + nazwa + "\n" +
                 "cena = " + cena + "\n" +
-                "ilość = " + ilość +"\n*";
+                "ilość = " + ilość +"\n*\n";
     }
 
 
