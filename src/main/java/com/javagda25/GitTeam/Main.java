@@ -48,6 +48,9 @@ public class Main {
                 case "h":
                     magazyn.sprzedaz(magazyn.produktyWMagazynie);
                     break;
+                case "i":
+                    System.out.println(magazyn.listaZamówieńZrealizowanych);
+                    break;
             }
 
 

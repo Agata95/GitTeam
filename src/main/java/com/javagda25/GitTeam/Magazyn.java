@@ -138,6 +138,9 @@ public class Magazyn {
 
 
             System.out.println("Zamówienie zawiera " + zamówienie.getProdukty().size() + " produkty/ów.");
+
+            System.out.println(zamówienie.getProdukty());
+
             // ile produktów dostarczono na magazyn z produktów zamówionych?
             System.out.println("Dostarczono : " + zamówienie.getProduktyDostarczone() + " produkty/ów.");
 
@@ -154,10 +157,13 @@ public class Magazyn {
                         double iloscWMagazynie = s.getValue().getIlość();
                         System.out.println("ilosc w magazynie = " + iloscWMagazynie);
                         s.getValue().setIlość(iloscWMagazynie-iloscSprzedanegoZamowienia);
+                        System.out.println("iloscWMag - iloscSprzedanegoZamowienia = " + s.getValue().getIlość());
+
+//                        if(s.getValue().getIlość()==0){
+//                            produktyWMagazynie.remove(s.getKey());
+//                        }
                     }
-                    if(s.getValue().getIlość()==0){
-                        produktyWMagazynie.remove(s.getKey());
-                    }
+
                 }
             }
         } else {
